@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: msv-students
+  data:
+    mongodb:
+      uri: mongodb+srv://vallegrandeomar:oFnm1G368PeimZNj@cluster0.srr0s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: msv_students
+
+logging:
+  level:
+    root: INFO
+    org.springframework.data.mongodb: DEBUG
+    pe.edu.vallegrande: DEBUG
+    org.springframework.web: DEBUG
+    com.mongodb: DEBUG 
