@@ -1,8 +1,20 @@
-# Microservicio de Estudiantes (MSV-Students)
+# Student Microservice (MSV-Students)
 
-Este microservicio gestiona la información de estudiantes y sus matrículas en aulas para Valle Grande.
+This microservice manages student information and their classroom enrollments for Valle Grande.
 
-## Estructura del Proyecto
+## 🔧 Project Stack
+- **Backend**: Java 17 (Spring Boot, Spring WebFlux - Reactive Programming)
+- **Database**: MongoDB
+- **Additional Tools**: Lombok
+
+---
+
+## ✅ Project Purpose
+This microservice is designed to efficiently manage student data and classroom enrollments, providing a robust API for student management operations.
+
+---
+
+## 🛠️ Project Structure
 
 ```
 src/main/java/pe/edu/vallegrande/msvstudents/
@@ -45,48 +57,40 @@ src/main/java/pe/edu/vallegrande/msvstudents/
         └── StudentController.java
 ```
 
-## Tecnologías Utilizadas
+## 🚀 API Endpoints
 
-- Spring Boot
-- Spring WebFlux (Programación Reactiva)
-- MongoDB
-- Lombok
-- Java 17
+### Students (`/api/v1/students`)
 
-## Endpoints
-
-### Estudiantes (`/api/v1/students`)
-
-| Método | Endpoint | Descripción |
+| Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/` | Obtener todos los estudiantes |
-| GET | `/{id}` | Obtener estudiante por ID |
-| POST | `/` | Crear nuevo estudiante |
-| PUT | `/{id}` | Actualizar estudiante existente |
-| DELETE | `/{id}` | Eliminar estudiante (cambio de estado a inactivo) |
-| GET | `/institution/{institutionId}` | Obtener estudiantes por ID de institución |
-| GET | `/status/{status}` | Obtener estudiantes por estado |
-| GET | `/gender/{gender}` | Obtener estudiantes por género |
-| PUT | `/{id}/restore` | Restaurar estudiante eliminado |
+| GET | `/` | Get all students |
+| GET | `/{id}` | Get student by ID |
+| POST | `/` | Create new student |
+| PUT | `/{id}` | Update existing student |
+| DELETE | `/{id}` | Delete student (change status to inactive) |
+| GET | `/institution/{institutionId}` | Get students by institution ID |
+| GET | `/status/{status}` | Get students by status |
+| GET | `/gender/{gender}` | Get students by gender |
+| PUT | `/{id}/restore` | Restore deleted student |
 
-### Matrículas (`/api/v1/classroom-students`)
+### Enrollments (`/api/v1/classroom-students`)
 
-| Método | Endpoint | Descripción |
+| Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/` | Obtener todas las matrículas |
-| GET | `/{id}` | Obtener matrícula por ID |
-| POST | `/` | Crear nueva matrícula |
-| PUT | `/{id}` | Actualizar matrícula existente |
-| DELETE | `/{id}` | Eliminar matrícula (cambio de estado a inactivo) |
-| GET | `/student/{studentId}` | Obtener matrículas por ID de estudiante |
-| GET | `/classroom/{classroomId}` | Obtener matrículas por ID de aula |
-| GET | `/status/{status}` | Obtener matrículas por estado |
-| GET | `/year/{year}` | Obtener matrículas por año |
-| GET | `/period/{period}` | Obtener matrículas por periodo |
-| GET | `/year/{year}/period/{period}` | Obtener matrículas por año y periodo |
-| PUT | `/{id}/restore` | Restaurar matrícula eliminada |
+| GET | `/` | Get all enrollments |
+| GET | `/{id}` | Get enrollment by ID |
+| POST | `/` | Create new enrollment |
+| PUT | `/{id}` | Update existing enrollment |
+| DELETE | `/{id}` | Delete enrollment (change status to inactive) |
+| GET | `/student/{studentId}` | Get enrollments by student ID |
+| GET | `/classroom/{classroomId}` | Get enrollments by classroom ID |
+| GET | `/status/{status}` | Get enrollments by status |
+| GET | `/year/{year}` | Get enrollments by year |
+| GET | `/period/{period}` | Get enrollments by period |
+| GET | `/year/{year}/period/{period}` | Get enrollments by year and period |
+| PUT | `/{id}/restore` | Restore deleted enrollment |
 
-## Modelos de Datos
+## 📝 Data Models
 
 ### StudentRequest
 ```json
@@ -94,7 +98,7 @@ src/main/java/pe/edu/vallegrande/msvstudents/
     "institutionId": "string",
     "firstName": "string",
     "lastName": "string",
-    "documentType": "DNI | PASAPORTE | CARNET DE EXTRANJERIA | OTROS",
+    "documentType": "DNI | PASSPORT | FOREIGN_CARD | OTHERS",
     "documentNumber": "string",
     "gender": "M | F",
     "birthDate": "YYYY-MM-DD",
@@ -115,164 +119,165 @@ src/main/java/pe/edu/vallegrande/msvstudents/
 }
 ```
 
-## Enumeraciones
+## 🔍 Enumerations
 
-### Estado (Status)
-- `ACTIVE`: "A" - Registro activo
-- `INACTIVE`: "I" - Registro inactivo
+### Status
+- `ACTIVE`: "A" - Active record
+- `INACTIVE`: "I" - Inactive record
 
-### Género (Gender)
-- `MALE`: "M" - Masculino
-- `FEMALE`: "F" - Femenino
+### Gender
+- `MALE`: "M" - Male
+- `FEMALE`: "F" - Female
 
-### Tipo de Documento (DocumentType)
-- `DNI`: "DNI" - Documento Nacional de Identidad
-- `PASSPORT`: "PASAPORTE" - Pasaporte
-- `FOREIGN_CARD`: "CARNET DE EXTRANJERIA" - Carnet de Extranjería
-- `OTHERS`: "OTROS" - Otros tipos de documento
+### Document Type
+- `DNI`: "DNI" - National Identity Document
+- `PASSPORT`: "PASSPORT"
+- `FOREIGN_CARD`: "FOREIGN_CARD" - Foreign Resident Card
+- `OTHERS`: "OTHERS" - Other document types
 
-## Configuración CORS
+## ⚙️ CORS Configuration
 
-El microservicio está configurado para permitir solicitudes CORS desde cualquier origen (*) con los métodos HTTP GET, POST, PUT, DELETE y OPTIONS.
+The microservice is configured to allow CORS requests from any origin (*) with HTTP methods GET, POST, PUT, DELETE, and OPTIONS.
 
-## Manejo de Errores
+## 🛡️ Error Handling
 
-El sistema incluye un manejador global de excepciones que proporciona respuestas consistentes para los siguientes casos:
+The system includes a global exception handler that provides consistent responses for:
 
-- Recurso no encontrado (404)
-- Errores de validación (400)
-- Errores internos del servidor (500)
+- Resource not found (404)
+- Validation errors (400)
+- Internal server errors (500)
 
-## Estado de Registros
+## 📊 Record Status
 
-Los registros (estudiantes y matrículas) utilizan los siguientes estados:
+Records (students and enrollments) use the following statuses:
 
-- "A": Activo
-- "I": Inactivo
+- "A": Active
+- "I": Inactive
 
-## Control de Versiones
+## 🔄 Version Control
 
-Este proyecto se mantiene en dos repositorios remotos: GitHub y GitLab. Los repositorios configurados son:
+This project is maintained in two remote repositories: GitHub and GitLab:
 - GitHub: https://github.com/Omarrivv/vg-ms-students.git
 - GitLab: https://gitlab.com/vallegrande/as231s5_prs2/vg-ms-students.git
 
-### Estado Actual de Remotos
+### Remote Status
 
 ```bash
-# Ver los remotos configurados
+# View configured remotes
 git remote -v
 
-# Resultado esperado:
+# Expected output:
 github  https://github.com/Omarrivv/vg-ms-students.git (fetch)
 github  https://github.com/Omarrivv/vg-ms-students.git (push)
 origin  https://gitlab.com/vallegrande/as231s5_prs2/vg-ms-students.git (fetch)
 origin  https://gitlab.com/vallegrande/as231s5_prs2/vg-ms-students.git (push)
 ```
 
-### Subir Cambios a Ambos Repositorios
+### Pushing Changes to Both Repositories
 
-1. Guardar los cambios locales:
+1. Save local changes:
 ```bash
-# Ver el estado de los archivos
 git status
-
-# Agregar los archivos modificados
 git add .
-
-# Crear un commit con los cambios
-git commit -m "descripción de los cambios realizados"
+git commit -m "description of changes"
 ```
 
-2. Subir a GitLab (origin):
+2. Push to GitLab (origin):
 ```bash
-# Actualizar rama main desde GitLab
 git pull origin main
-
-# Subir cambios a GitLab
 git push origin main
 ```
 
-3. Subir a GitHub:
+3. Push to GitHub:
 ```bash
-# Actualizar rama main desde GitHub
 git pull github main
-
-# Subir cambios a GitHub
 git push github main
 ```
 
-### Comandos Útiles
+### Useful Commands
 
 ```bash
-# Ver el historial de commits
+# View commit history
 git log --oneline --graph --all
 
-# Ver en qué rama estás y su estado
+# Check branch status
 git status
 
-# Ver las diferencias antes de hacer commit
+# View differences before committing
 git diff
 
-# Deshacer cambios en un archivo antes de hacer commit
-git checkout -- nombre-archivo
+# Undo changes in a file before committing
+git checkout -- filename
 
-# Crear una nueva rama
-git checkout -b nombre-rama
+# Create a new branch
+git checkout -b branch-name
 
-# Cambiar de rama
-git checkout nombre-rama
+# Switch branches
+git checkout branch-name
 ```
 
-### Resolución de Conflictos
+### Conflict Resolution
 
-Si hay conflictos al hacer pull de algún repositorio:
+If conflicts arise when pulling from any repository:
 
-1. Identificar los archivos con conflictos (aparecerán en rojo al hacer git status)
+1. Identify conflicted files (shown in red in git status)
 
-2. Abrir los archivos con conflictos y buscar las marcas de conflicto:
+2. Open conflicted files and look for conflict markers:
 ```
 <<<<<<< HEAD
-tus cambios locales
+your local changes
 =======
-cambios del repositorio remoto
+remote repository changes
 >>>>>>> branch-name
 ```
 
-3. Editar el archivo para mantener el código correcto y eliminar las marcas de conflicto
+3. Edit the file to keep the correct code and remove conflict markers
 
-4. Agregar los archivos resueltos:
+4. Add resolved files:
 ```bash
 git add .
 ```
 
-5. Completar el merge:
+5. Complete the merge:
 ```bash
-git commit -m "resolver conflictos de merge"
+git commit -m "resolve merge conflicts"
 ```
 
-6. Continuar con el push al repositorio correspondiente
+6. Continue pushing to the corresponding repository
 
-### Recomendaciones
+### Recommendations
 
-1. Siempre hacer pull antes de empezar a trabajar:
+1. Always pull before starting work:
 ```bash
 git pull origin main
 git pull github main
 ```
 
-2. Crear commits pequeños y descriptivos
+2. Create small, descriptive commits
 
-3. En caso de duda sobre el estado del repositorio:
+3. If in doubt about repository status:
 ```bash
-# Ver estado actual
+# Check current status
 git status
 
-# Ver historial
+# View history
 git log --oneline
 ```
 
-4. Si necesitas deshacer el último commit (pero mantener los cambios):
+4. If you need to undo the last commit (but keep changes):
 ```bash
 git reset --soft HEAD~1
 ```
-#
+
+---
+
+## 💡 Contributing
+Please read our contribution guidelines before submitting pull requests.
+
+## 📞 Support
+For support, please open an issue in the repository or contact the development team.
+
+---
+
+**Thank you for contributing to this project!** 
+👍 *Let's build something great together.*
